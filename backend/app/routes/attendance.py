@@ -6,7 +6,7 @@ from datetime import date
 
 router = APIRouter()
 
-@router.post("/", response_model=AttendanceResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=AttendanceResponse, status_code=status.HTTP_201_CREATED)
 async def mark_attendance(attendance: AttendanceCreate):
     employee = await db.employees.find_one({"employee_id": attendance.employee_id})
     if not employee:
@@ -31,7 +31,7 @@ async def mark_attendance(attendance: AttendanceCreate):
     
     return attendance
 
-@router.get("/", response_model=List[AttendanceResponse])
+@router.get("", response_model=List[AttendanceResponse])
 async def get_all_attendance():
     cursor = db.attendance.find().sort("date", -1)
     attendance_records = await cursor.to_list(1000)
