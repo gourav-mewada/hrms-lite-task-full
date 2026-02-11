@@ -1,2 +1,4 @@
 /frontend/node_modules
 /backend/venv
+node_modules
+branch_structure.json
