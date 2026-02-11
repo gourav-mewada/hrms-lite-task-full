@@ -5,7 +5,7 @@ from typing import List
 
 router = APIRouter()
 
-@router.post("/", response_model=EmployeeResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=EmployeeResponse, status_code=status.HTTP_201_CREATED)
 async def create_employee(employee: EmployeeCreate):
     existing_employee = await db.employees.find_one({"employee_id": employee.employee_id})
     if existing_employee:
@@ -15,7 +15,7 @@ async def create_employee(employee: EmployeeCreate):
     await db.employees.insert_one(employee_dict)
     return employee
 
-@router.get("/", response_model=List[EmployeeResponse])
+@router.get("", response_model=List[EmployeeResponse])
 async def list_employees():
     employees = await db.employees.find().to_list(1000)
     return employees
